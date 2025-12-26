@@ -309,7 +309,7 @@ def create_project(category, template_name, project_name, package_name=None, out
 
     print(f"\nSuccess! Project '{project_name}' created at {target_dir}")
     print(f"\nNext steps:")
-    print(f"  cd {project_name}")
+    print(f"  cd output/{project_slug}")
     print("  # Follow the README.md instructions inside the project")
 
     return True

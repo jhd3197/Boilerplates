@@ -1,11 +1,11 @@
 # How It Works
 
-This boilerplate provides a robust Python project structure combining a flexible **Client** (using cooperative multiple inheritance) and a modern **Flask API Server**.
+This PROJECT_NAME_PLACEHOLDER provides a robust Python project structure combining a flexible **Client** (using cooperative multiple inheritance) and a modern **Flask API Server**.
 
 ## 📂 Project Structure
 
 ```text
-python_client_flask/
+PACKAGE_NAME_PLACEHOLDER/
 ├── app.py                 # Entry point for the Flask API Server
 ├── playground.py          # Script to demonstrate/test Client features
 ├── requirements.txt       # Project dependencies
@@ -52,7 +52,7 @@ Both methods start the server at `http://127.0.0.1:3167`.
 
 ## 🛠️ The Client
 
-The `Client` class is built using **Cooperative Multiple Inheritance**. This allows you to combine multiple "Mixins" into a single, powerful class without boilerplate.
+The `Client` class is built using **Cooperative Multiple Inheritance**. This allows you to combine multiple "Mixins" into a single, powerful class without PROJECT_NAME_PLACEHOLDER.
 
 ### Key Concepts
 1.  **Mixins**: Small classes that do one thing well (e.g., `LoggerMixin` handles logs, `DatabaseMixin` handles DB connections).

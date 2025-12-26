@@ -130,6 +130,17 @@ Each template can optionally include a `template.json` file that defines how the
 }
 ```
 
+### Template Documentation
+
+Every project created with `boilerplates` includes a `how_it_works.md` file in the root directory. This file provides immediate context for:
+- **Project Structure**: What each file and folder does
+- **Getting Started**: How to install dependencies and run the project
+- **Features**: Key technologies and features included in the template
+- **Customization**: How to configure and adapt the project
+
+This documentation is automatically generated and customized for the specific template used.
+
+
 ### Configuration Options
 
 - **prompts**: Define variables that will be collected from the user

@@ -1,6 +1,7 @@
 """Project metadata sources of truth."""
 
-NAME = "myproject"
+NAME = "myproject"  # Package name (slug format)
+DISPLAY_NAME = "PROJECT_DISPLAY_NAME_PLACEHOLDER"  # Original project name
 VERSION = "1.0.0"
 DESCRIPTION = "PROJECT_DESCRIPTION_PLACEHOLDER"
 AUTHOR = "AUTHOR_NAME_PLACEHOLDER"

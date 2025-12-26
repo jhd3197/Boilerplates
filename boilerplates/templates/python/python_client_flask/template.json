@@ -37,19 +37,70 @@
       "glob": "**/*.py",
       "values": {
         "myproject": "{{package_name}}",
+        "MyProject": "{{project_name}}",
+        "PROJECT_DISPLAY_NAME_PLACEHOLDER": "{{project_name}}",
         "AUTHOR_NAME_PLACEHOLDER": "{{author_name}}",
         "AUTHOR_EMAIL_PLACEHOLDER": "{{author_email}}",
         "PROJECT_DESCRIPTION_PLACEHOLDER": "{{project_description}}"
       }
     },
     {
+      "glob": "*.py",
+      "values": {
+        "myproject": "{{package_name}}",
+        "MyProject": "{{project_name}}"
+      }
+    },
+    {
       "glob": "**/*.md",
+      "values": {
+        "MyProject": "{{project_name}}",
+        "PROJECT_NAME_PLACEHOLDER": "{{project_name}}",
+        "myproject": "{{package_name}}",
+        "PACKAGE_NAME_PLACEHOLDER": "{{package_name}}"
+      }
+    },
+    {
+      "glob": "*.md",
+      "values": {
+        "MyProject": "{{project_name}}",
+        "PROJECT_NAME_PLACEHOLDER": "{{project_name}}",
+        "myproject": "{{package_name}}",
+        "PACKAGE_NAME_PLACEHOLDER": "{{package_name}}"
+      }
+    },
+    {
+      "glob": "**/*.txt",
       "values": {
         "myproject": "{{package_name}}"
       }
     },
     {
-      "glob": "**/*.txt",
+      "glob": "**/*.yml",
+      "values": {
+        "myproject": "{{package_name}}"
+      }
+    },
+    {
+      "glob": "**/*.yaml",
+      "values": {
+        "myproject": "{{package_name}}"
+      }
+    },
+    {
+      "glob": ".env*",
+      "values": {
+        "MyProject": "{{project_name}}"
+      }
+    },
+    {
+      "glob": "*.yml",
+      "values": {
+        "myproject": "{{package_name}}"
+      }
+    },
+    {
+      "glob": "*.yaml",
       "values": {
         "myproject": "{{package_name}}"
       }
