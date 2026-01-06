@@ -1,22 +1,62 @@
-# Boilerplates
+# ⚡ Boilerplates CLI
 
-A collection of boilerplates templates for quickly starting new projects. Includes Python (Flask, custom utilities) and React (SPA, Dashboard, Marketing, Embedded) templates.
+> **Accelerate your development.** A powerful CLI for scaffolding production-ready projects in seconds.
+
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-active-success)
+
+**Boilerplates** is a robust project generator designed to eliminate setup fatigue. Whether you are building a Flask API or a React Dashboard, get started with best-practice architectures instantly.
+
+## Key Features
+
+* **Interactive CLI:** Guided prompts make setup effortless.
+* **Fuzzy Search:** Instantly find the template you need without memorizing names.
+* **Smart Context:** Automatically handles slug conversion (e.g., "My App" → `my_app`).
+* **Auto-Documentation:** Generates a custom `how_it_works.md` for every new project.
+* **Highly Configurable:** Define custom prompts and file replacements via `template.json`.
+
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+*   **Python 3.8+**: Required to run the CLI.
+*   **pip**: Python package installer.
+*   *(Optional)* **Node.js & npm**: Required if you plan to use React templates.
+
+---
 
 ## Installation
 
-Install the Boilerplates Manager CLI:
+Clone the repository and install the CLI globally using pip. We recommend installing in editable mode so you can easily update templates.
 
+### 1. Clone the repository
+```bash
+git clone https://github.com/yourusername/boilerplates.git
+cd boilerplates
+```
+
+### 2. Install the CLI
 ```bash
 pip install -e .
 ```
 
-This installs the `boilerplates` command globally.
+> **Note:** If you get a "permission denied" error, try using `sudo` (Linux/Mac) or run your command prompt as Administrator (Windows).
+
+### 3. Verify Installation
+```bash
+boilerplates --help
+```
+
+---
 
 ## Quick Start
 
 ### Interactive Mode (Recommended)
 
-Run the CLI in interactive mode with guided prompts:
+The easiest way to start a new project. The CLI will guide you through naming, metadata, and template selection.
 
 ```bash
 boilerplates init
@@ -24,84 +64,75 @@ boilerplates init
 boilerplates
 ```
 
-This will guide you through:
-1. **Project name** - Automatically converted to slug format (e.g., "My App" → `my_app`)
-2. **Author name** - Saved to project metadata
-3. **Author email** (optional) - Saved to project metadata
-4. **Category** - Select programming language (Python, React, etc.)
-5. **Template search** - Fuzzy search to find the perfect template
-6. **Project description** (optional) - Describe your project
+**The Setup Wizard will collect:**
 
-**Key Features:**
-- 📁 Projects created in `./output/` directory
-- 🔤 Automatic slug conversion for package names
-- 👤 Author metadata embedded in generated files
-- 🔍 Fuzzy search for templates
-- 📝 No separate package name prompt - uses slugified project name
+1.  **Project Name** (Auto-slugified for package names)
+2.  **Author Metadata** (Name/Email)
+3.  **Category** (Python, React, etc.)
+4.  **Template Selection** (via Fuzzy Search)
 
-### List Available Templates
+### Non-Interactive Mode
+
+Perfect for scripts or power users who know exactly what they want.
 
 ```bash
-boilerplates list
-```
+# Syntax: boilerplates create <category> <template_id> <project_name>
 
-### Create Project (Non-Interactive)
-
-```bash
 # Create a Python Flask project
 boilerplates create python python_client_flask my-flask-app
 
 # Create a React SPA
 boilerplates create react react_spa my-react-app
 
-# With custom package name (Python projects)
-boilerplates create python python_client_flask my-app --package customname
-
-# To a specific output directory
+# Custom flags
+boilerplates create python python_client_flask my-app --package custom_pkg_name
 boilerplates create react react_dashboard admin-panel --output ~/projects
 ```
 
-## Available Templates
+To see a full list of commands:
 
-### Python Templates
-- `python_client_flask`: Flask application with modular architecture
-- `cache`: Custom caching utilities
-- `custom_cache`: Advanced caching implementation
-- `myproject`: Basic Python project structure
-
-### React Templates
-- `react_spa`: Single-page application with Vite and React Router
-- `react_dashboard`: Admin dashboard with authentication and charts
-- `react_marketing`: Landing pages optimized for SEO
-- `react_embedded`: Embeddable widgets for integration
-
-## Project Structure
-
+```bash
+boilerplates list
 ```
-boilerplates/
-├── boilerplates/           # Main package
-│   ├── __init__.py
-│   ├── cli.py             # CLI implementation
-│   └── templates/         # Template files
-│       ├── python/
-│       └── react/
-├── setup.py               # Package configuration
-├── requirements.txt       # Dependencies
-└── README.md
-```
+
+---
+
+## Template Catalog
+
+### Python
+
+| Template ID | Description |
+| --- | --- |
+| `python_client_flask` | Modular Flask architecture with API structure. |
+| `cache` | Standalone custom caching utilities. |
+| `custom_cache` | Advanced caching implementation for high-performance needs. |
+| `myproject` | Basic, unopinionated Python project structure. |
+
+### React
+
+| Template ID | Description |
+| --- | --- |
+| `react_spa` | Modern Single Page Application (Vite + React Router). |
+| `react_dashboard` | Admin dashboard boilerplate with auth flows and charts. |
+| `react_marketing` | High-performance landing page structure optimized for SEO. |
+| `react_embedded` | Lightweight setup for embeddable widgets/scripts. |
+
+---
 
 ## Template Configuration
 
-Each template can optionally include a `template.json` file that defines how the template should be customized. This allows for flexible configuration of prompts, file renaming, and content replacement.
+Want to add your own templates? Each template acts as a blueprint. You can control how the CLI interacts with your template using a `template.json` file in the template's root.
 
-### Template JSON Structure
+### The `template.json` Schema
+
+This file handles dynamic variable collection, file renaming, and string replacement.
 
 ```json
 {
   "id": "python_client_flask",
   "name": "Python Client + Flask API",
   "description": "Client-centric Python project with an integrated Flask API server.",
-
+  
   "prompts": {
     "project_name": {
       "label": "Project name",
@@ -114,11 +145,11 @@ Each template can optionally include a `template.json` file that defines how the
       "format": "snake_case"
     }
   },
-
+  
   "rename": {
     "myproject": "{{package_name}}"
   },
-
+  
   "replace": [
     {
       "glob": "**/*.{py,md,txt}",
@@ -130,36 +161,53 @@ Each template can optionally include a `template.json` file that defines how the
 }
 ```
 
-### Template Documentation
-
-Every project created with `boilerplates` includes a `how_it_works.md` file in the root directory. This file provides immediate context for:
-- **Project Structure**: What each file and folder does
-- **Getting Started**: How to install dependencies and run the project
-- **Features**: Key technologies and features included in the template
-- **Customization**: How to configure and adapt the project
-
-This documentation is automatically generated and customized for the specific template used.
-
-
 ### Configuration Options
 
-- **prompts**: Define variables that will be collected from the user
-  - `label`: User-facing prompt text
-  - `default`: Default value
-  - `format`: Format type (`text`, `snake_case`, etc.)
+*   **Prompts:** Define input variables (`label`, `default`, `format`).
+*   **Rename:** Map directory/file names to variables using `{{mustache}}` syntax.
+*   **Replace:** Targeted string replacement within files using glob patterns.
 
-- **rename**: Map of old directory/file names to new names using variable substitution
-  - Keys are original names
-  - Values use `{{variable}}` syntax for substitution
+> [!WARNING]
+> **Legacy Mode:** If `template.json` is missing, the CLI defaults to "Legacy Mode." It will assume the project contains a folder named `myproject` and attempt to rename it and replace string instances with the new package name automatically. **This is deprecated.**
 
-- **replace**: Array of replacement rules
-  - `glob`: File pattern to match (e.g., `**/*.py`)
-  - `values`: Map of old strings to new strings (supports `{{variable}}` syntax)
+---
 
-### Legacy Mode
+## Project Structure
 
-Templates without a `template.json` file will automatically use legacy mode, which:
-- Renames `myproject` directory to the package name
-- Replaces `myproject` string throughout all files
+```text
+boilerplates/
+├── boilerplates/           # Main Package Source
+│   ├── __init__.py
+│   ├── cli.py              # CLI Logic & Entry Point
+│   └── templates/          # Template Repository
+│       ├── python/
+│       └── react/
+├── setup.py                # Package Configuration
+├── requirements.txt        # Dependencies
+└── README.md
+```
 
-This ensures backward compatibility with existing templates.
+## Troubleshooting
+
+**Command not found?**
+Ensure your Python scripts directory is in your system's `PATH`.
+*   **Windows**: Add `%APPDATA%\Python\Scripts` to PATH.
+*   **Mac/Linux**: Add `~/.local/bin` to your PATH.
+
+**Permission errors?**
+Try running with `sudo` or check directory permissions.
+
+---
+
+## Documentation
+
+Every project generated by **Boilerplates** comes with a specialized `how_it_works.md`. This auto-generated file provides immediate context for the specific template used, covering:
+
+*   Project Structure breakdown
+*   Dependency installation
+*   Key features & technologies
+*   Customization guides
+
+---
+
+Made with ❤️ by [Juan Denis](https://juandenis.com)
