@@ -1,0 +1,8 @@
+{
+  "id": "test_template",
+  "name": "Test Local Template",
+  "description": "A simple local template for testing purposes.",
+  "rename": {
+    "myproject.go": "{{.ProjectName}}.go"
+  }
+}
