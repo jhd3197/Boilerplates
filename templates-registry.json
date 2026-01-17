@@ -1,0 +1,96 @@
+{
+  "version": "1.0",
+  "name": "Official Boilerplate Templates",
+  "description": "Curated collection of project templates - each template can be from a different repository",
+  "default_repo": "https://github.com/jgarzarebel/boilerplates",
+  "templates": [
+    {
+      "id": "python_client_flask",
+      "name": "Python Client + Flask API",
+      "description": "Client-centric Python project with an integrated Flask API server.",
+      "category": "python",
+      "repo": null,
+      "path": "boilerplates/templates/python/python_client_flask",
+      "branch": "main",
+      "commit": null,
+      "tags": ["python", "flask", "api", "client"]
+    },
+    {
+      "id": "react_spa",
+      "name": "React Single Page Application",
+      "description": "Client-only React app with Vite and React Router.",
+      "category": "react",
+      "repo": null,
+      "path": "boilerplates/templates/react/react_spa",
+      "branch": "main",
+      "commit": null,
+      "tags": ["react", "vite", "spa", "router"]
+    },
+    {
+      "id": "react_dashboard",
+      "name": "React Dashboard",
+      "description": "Admin dashboard with authentication, tables, charts, and admin UI components.",
+      "category": "react",
+      "repo": null,
+      "path": "boilerplates/templates/react/react_dashboard",
+      "branch": "main",
+      "commit": null,
+      "tags": ["react", "dashboard", "admin", "charts"]
+    },
+    {
+      "id": "react_marketing",
+      "name": "React Marketing Site",
+      "description": "Landing pages and marketing site optimized for SEO and conversion.",
+      "category": "react",
+      "repo": null,
+      "path": "boilerplates/templates/react/react_marketing",
+      "branch": "main",
+      "commit": null,
+      "tags": ["react", "marketing", "seo", "landing"]
+    },
+    {
+      "id": "react_embedded",
+      "name": "React Embedded Widget",
+      "description": "Embeddable React widgets designed for integration into other applications.",
+      "category": "react",
+      "repo": null,
+      "path": "boilerplates/templates/react/react_embedded",
+      "branch": "main",
+      "commit": null,
+      "tags": ["react", "widget", "embedded", "iframe"]
+    },
+    {
+      "id": "react_pcf_simple",
+      "name": "React PCF (PowerApps Component Framework)",
+      "description": "Simple PowerApps Component Framework control with TypeScript",
+      "category": "react",
+      "repo": null,
+      "path": "boilerplates/templates/react/react_pcf_simple",
+      "branch": "main",
+      "commit": null,
+      "tags": ["react", "pcf", "powerapps", "typescript"]
+    },
+    {
+      "id": "wp_plugin_basic_kit",
+      "name": "WordPress Plugin Basic Kit",
+      "description": "Starter WordPress plugin with admin/public classes, hooks, and assets.",
+      "category": "php",
+      "repo": null,
+      "path": "boilerplates/templates/php/wp_plugin_basic_kit",
+      "branch": "main",
+      "commit": null,
+      "tags": ["php", "wordpress", "plugin"]
+    },
+    {
+      "id": "wp_theme_basic",
+      "name": "WordPress Theme Basic",
+      "description": "Starter WordPress theme with standard hierarchy and header/footer/sidebar.",
+      "category": "php",
+      "repo": null,
+      "path": "boilerplates/templates/php/wp_theme_basic",
+      "branch": "main",
+      "commit": null,
+      "tags": ["php", "wordpress", "theme"]
+    }
+  ]
+}

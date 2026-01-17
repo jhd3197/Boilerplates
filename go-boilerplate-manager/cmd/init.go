@@ -23,16 +23,22 @@ var initCmd = &cobra.Command{
 			log.Fatalf("Error loading configuration: %v", err)
 		}
 
-		// Get all templates (public and local)
+		// Get all templates
 		var allTemplates []config.Template
 
-		publicTemplates, err := templates.FetchPublicTemplates(cfg.PublicRepoURL)
+		// Fetch from registries
+		registryTemplates, err := templates.FetchAllRegistries(cfg)
 		if err != nil {
-			log.Printf("Warning: Could not fetch public templates: %v", err)
+			log.Printf("Warning: Could not fetch registry templates: %v", err)
 		} else {
-			allTemplates = append(allTemplates, publicTemplates...)
+			allTemplates = append(allTemplates, registryTemplates...)
 		}
 
+		// Get custom templates
+		customTemplates := templates.GetCustomTemplates(cfg)
+		allTemplates = append(allTemplates, customTemplates...)
+
+		// Discover local templates
 		localTemplates, err := templates.DiscoverLocalTemplates("templates")
 		if err != nil {
 			log.Printf("Warning: Could not discover local templates: %v", err)
@@ -40,11 +46,17 @@ var initCmd = &cobra.Command{
 			allTemplates = append(allTemplates, localTemplates...)
 		}
 
+		if len(allTemplates) == 0 {
+			fmt.Println("No templates available. Add a registry or custom template first.")
+			return
+		}
+
 		// Create options for the select field
 		var templateOptions []huh.Option[string]
 		for _, tpl := range allTemplates {
+			label := fmt.Sprintf("%s (%s)", tpl.Name, tpl.Category)
 			templateOptions = append(templateOptions, huh.Option[string]{
-				Key: tpl.Name, Value: tpl.ID, // Removed Description field
+				Key: label, Value: tpl.ID,
 			})
 		}
 
@@ -55,6 +67,13 @@ var initCmd = &cobra.Command{
 
 		form := huh.NewForm(
 			huh.NewGroup(
+				huh.NewSelect[string]().
+					Title("Choose a boilerplate template").
+					Description("Select from available templates").
+					Options(templateOptions...).
+					Value(&selectedTemplateID).
+					Key("selectedTemplate"),
+
 				huh.NewInput().
 					Title("What is your project name?").
 					Description("e.g. My Awesome Project").
@@ -68,13 +87,6 @@ var initCmd = &cobra.Command{
 					Placeholder("Enter author name").
 					Value(&authorName).
 					Key("authorName"),
-
-				huh.NewSelect[string]().
-					Title("Choose a boilerplate template").
-					Description("Select from available templates").
-					Options(templateOptions...).
-					Value(&selectedTemplateID).
-					Key("selectedTemplate"),
 			),
 		).
 			WithTheme(huh.ThemeBase())
@@ -85,9 +97,30 @@ var initCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
+		// Find selected template
+		var selectedTemplate *config.Template
+		for _, tpl := range allTemplates {
+			if tpl.ID == selectedTemplateID {
+				selectedTemplate = &tpl
+				break
+			}
+		}
+
+		if selectedTemplate == nil {
+			fmt.Printf("Error: Template '%s' not found\n", selectedTemplateID)
+			os.Exit(1)
+		}
+
 		fmt.Printf("\nProject Name: %s\n", projectName)
 		fmt.Printf("Author Name: %s\n", authorName)
-		fmt.Printf("Selected Template ID: %s\n", selectedTemplateID)
+		fmt.Printf("Selected Template: %s (%s)\n", selectedTemplate.Name, selectedTemplate.ID)
+		if selectedTemplate.Repo != "" {
+			fmt.Printf("Repo: %s\n", selectedTemplate.Repo)
+			fmt.Printf("Path: %s\n", selectedTemplate.Path)
+		}
+
+		// TODO: Implement actual template cloning and variable replacement
+		fmt.Println("\nTemplate cloning not yet implemented. Use 'create' command for now.")
 	},
 }
 
