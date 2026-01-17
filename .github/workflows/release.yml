@@ -1,159 +1,86 @@
-name: Publish to PyPI and GitHub Release
+name: Build and Release
 
 on:
   push:
-    branches:
-      - main
-      - dev
+    branches: [main]
+    tags:
+      - 'v*'
+  workflow_dispatch:
 
 permissions:
   contents: write
-  pull-requests: read
+
+defaults:
+  run:
+    working-directory: go-boilerplate-manager
 
 jobs:
-  release:
+  build:
+    name: Build ${{ matrix.goos }}-${{ matrix.goarch }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: windows
+            goarch: amd64
+            ext: .exe
+          - goos: windows
+            goarch: arm64
+            ext: .exe
+          - goos: linux
+            goarch: amd64
+            ext: ""
+          - goos: linux
+            goarch: arm64
+            ext: ""
+          - goos: darwin
+            goarch: amd64
+            ext: ""
+          - goos: darwin
+            goarch: arm64
+            ext: ""
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
 
-      - name: Ignore bot
-        if: github.actor == 'github-actions[bot]'
-        run: |
-          echo "Commit made by GitHub Actions. Exiting."
-          exit 0
-
-      - name: Bump Version and Push Tag
-        id: bump_version
-        uses: mathieudutour/github-tag-action@v6.0
+      - name: Set up Go
+        uses: actions/setup-go@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main,dev
-          default_bump: patch
-          tag_prefix: 'v'
+          go-version: '1.23'
 
-      - name: Update VERSION file
-        run: |
-          echo "${{ steps.bump_version.outputs.new_version }}" > VERSION
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add VERSION
-          git commit -m "🔖 Version v${{ steps.bump_version.outputs.new_version }} [skip ci]" || true
-          git push origin HEAD:${{ github.ref_name }} || true
-
-      - name: Fetch Latest Pull Request Info
-        id: fetch_pr
-        uses: actions/github-script@v6
-        with:
-          script: |
-            // Get the latest merged PR from dev to main (or any PR to main)
-            const prs = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'closed',
-              base: 'main',
-              head: 'dev', // Assuming typical flow dev -> main, but can be adjusted or removed if 'dev' branch doesn't exist
-              sort: 'updated',
-              direction: 'desc',
-              per_page: 1
-            });
-            
-            // Fallback: if no dev->main PR, just get latest closed PR to main
-            if (prs.data.length === 0) {
-                 console.log('No PR from dev found, checking any PR to main');
-                 const allPrs = await github.rest.pulls.list({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  state: 'closed',
-                  base: 'main',
-                  sort: 'updated',
-                  direction: 'desc',
-                  per_page: 1
-                 });
-                 if (allPrs.data.length > 0) {
-                     prs.data = allPrs.data;
-                 }
-            }
-            
-            if (prs.data.length > 0) {
-              const pr = prs.data[0];
-              const prTitle = pr.title;
-              const prBody = pr.body || 'No description provided';
-              const prNumber = pr.number;
-              const prUrl = pr.html_url;
-              const prAuthor = pr.user.login;
-              
-              // Format PR body to remove any markdown or special characters if needed
-              const formattedBody = prBody.replace(/\r\n/g, '\n');
-              
-              const releaseInfo = {
-                title: prTitle,
-                body: formattedBody,
-                number: prNumber,
-                url: prUrl,
-                author: prAuthor
-              };
-              
-              console.log('Latest PR Info:', releaseInfo);
-              return releaseInfo;
-            } else {
-              console.log('No recent PRs found');
-              return null;
-            }
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
+      - name: Build binary
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+          CGO_ENABLED: 0
+        run: |
+          go build -ldflags="-s -w" -o boilerplate-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.ext }} .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: v${{ steps.bump_version.outputs.new_version }}
-          release_name: v${{ steps.bump_version.outputs.new_version }}
-          body: |            
-            ## Changes
-            ${{ steps.fetch_pr.outputs.result != 'null' && fromJSON(steps.fetch_pr.outputs.result).body || 'Version update' }}
-            
-            ## Details
-            - Version: v${{ steps.bump_version.outputs.new_version }}
-            ${{ steps.fetch_pr.outputs.result != 'null' && format('- PR: #{0} by @{1}', fromJSON(steps.fetch_pr.outputs.result).number, fromJSON(steps.fetch_pr.outputs.result).author) || '' }}
-            ${{ steps.fetch_pr.outputs.result != 'null' && format('- PR URL: {0}', fromJSON(steps.fetch_pr.outputs.result).url) || '' }}
-          draft: false
-          prerelease: false
+          name: boilerplate-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: go-boilerplate-manager/boilerplate-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.ext }}
 
-      - name: Fetch all tags so setuptools_scm can detect the tag
-        run: |
-          git fetch --all --tags --prune
-          git tag --list
-          git describe --tags --long || true
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with: { python-version: '3.x' }
-
-      - name: Cache pip
-        uses: actions/cache@v3
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          path: artifacts
 
-      - name: Install build deps
-        run: |
-          python -m pip install --upgrade pip
-          pip install setuptools_scm build twine
+      - name: Display structure of downloaded files
+        run: ls -R artifacts
+        working-directory: .
 
-      - name: Build (release)
-        env:
-          SETUPTOOLS_SCM_PRETEND_VERSION: ${{ steps.bump_version.outputs.new_version }}
-        run: |
-          python -m build
-
-      # - name: Publish to PyPI
-      #   env:
-      #     TWINE_USERNAME: __token__
-      #     TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-      #   run: |
-      #     python -m pip install --upgrade twine
-      #     ls -al dist
-      #     python -m twine upload dist/* --non-interactive
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/**/*
+          generate_release_notes: true

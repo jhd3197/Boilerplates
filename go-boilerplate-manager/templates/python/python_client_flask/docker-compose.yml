@@ -1,0 +1,14 @@
+services:
+  api:
+    build: .
+    container_name: myproject_api
+    ports:
+      - "3167:3167"
+    volumes:
+      # Mount the current directory to /app for live reloading
+      - .:/app
+    environment:
+      - FLASK_DEBUG=1
+      # Add other environment variables here or use env_file
+      # - env_file: .env
+    restart: unless-stopped

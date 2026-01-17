@@ -1,0 +1,21 @@
+{
+  "id": "react_dashboard",
+  "name": "React Dashboard",
+  "description": "Admin dashboard with authentication, tables, charts, and admin UI components.",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My Dashboard",
+      "format": "text"
+    }
+  },
+  "replace": [
+    {
+      "glob": "**/*.{js,jsx,json,html,md}",
+      "values": {
+        "React Dashboard": "{{project_name}}",
+        "react-dashboard": "{{project_name}}"
+      }
+    }
+  ]
+}

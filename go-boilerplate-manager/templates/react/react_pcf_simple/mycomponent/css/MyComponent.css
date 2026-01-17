@@ -1,0 +1,38 @@
+/* MyComponent Styles for PROJECT_NAME_PLACEHOLDER */
+
+.mycomponent-container {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.mycomponent-input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 8px 12px;
+	font-size: 14px;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	outline: none;
+	transition: border-color 0.3s ease;
+}
+
+.mycomponent-input:focus {
+	border-color: #0078d4;
+	box-shadow: 0 0 4px rgba(0, 120, 212, 0.3);
+}
+
+.mycomponent-input:read-only {
+	background-color: #f3f2f1;
+	cursor: not-allowed;
+}
+
+.mycomponent-input-error {
+	border-color: #d13438;
+	background-color: #fef0f1;
+}
+
+.mycomponent-input-error:focus {
+	border-color: #d13438;
+	box-shadow: 0 0 4px rgba(209, 52, 56, 0.3);
+}

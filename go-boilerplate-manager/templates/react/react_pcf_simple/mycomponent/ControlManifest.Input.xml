@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="NAMESPACE_PLACEHOLDER" constructor="MyComponent" version="1.0.0" display-name-key="MyComponent" description-key="PROJECT_DESCRIPTION_PLACEHOLDER" control-type="standard">
+    <!-- Define the property types your control accepts -->
+    <type-group name="strings">
+      <type>SingleLine.Text</type>
+      <type>Multiple</type>
+    </type-group>
+
+    <!-- Control Properties -->
+    <property name="Value" display-name-key="Value_Display_Key" description-key="Value_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" default-value=""/>
+    <property name="Placeholder" display-name-key="Placeholder_Display_Key" description-key="Placeholder_Desc_Key" of-type="SingleLine.Text" usage="input" required="false" default-value="Enter text"/>
+    <property name="ReadOnly" display-name-key="ReadOnly_Display_Key" description-key="ReadOnly_Desc_Key" of-type="TwoOptions" usage="input" required="true" default-value="false"/>
+
+    <!-- Resources -->
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="css/MyComponent.css" order="1" />
+      <resx path="strings/MyComponent.1033.resx" version="1.0.0" />
+    </resources>
+
+    <!-- Uncomment features as needed -->
+    <!--
+    <feature-usage>
+      <uses-feature name="Utility" required="true" />
+      <uses-feature name="WebAPI" required="true" />
+    </feature-usage>
+    -->
+  </control>
+</manifest>

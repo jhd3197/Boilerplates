@@ -1,0 +1,10 @@
+/* Public styles for myproject */
+
+.myproject-example {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: #f0f6ff;
+    color: #1d2327;
+    font-weight: 600;
+}

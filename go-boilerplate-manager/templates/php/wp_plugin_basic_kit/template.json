@@ -1,0 +1,48 @@
+{
+  "id": "wp_plugin_basic_kit",
+  "name": "WordPress Plugin Basic Kit",
+  "description": "Starter WordPress plugin with admin/public classes, hooks, and assets.",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My Project",
+      "format": "text"
+    },
+    "package_name": {
+      "label": "Plugin slug",
+      "default": "myproject",
+      "format": "snake_case"
+    },
+    "author_name": {
+      "label": "Author name",
+      "default": "Your Name",
+      "format": "text"
+    },
+    "author_email": {
+      "label": "Author email",
+      "default": "",
+      "format": "text"
+    },
+    "project_description": {
+      "label": "Project description",
+      "default": "A clean WordPress plugin starter with admin/public separation.",
+      "format": "text"
+    }
+  },
+  "rename": {
+    "myproject.php": "{{package_name}}.php"
+  },
+  "replace": [
+    {
+      "glob": "{**/*,*}.{php,md,txt,css,js,json}",
+      "values": {
+        "myproject": "{{package_name}}",
+        "MyProject": "{{package_name}}",
+        "PROJECT_NAME_PLACEHOLDER": "{{project_name}}",
+        "PROJECT_DESCRIPTION_PLACEHOLDER": "{{project_description}}",
+        "AUTHOR_NAME_PLACEHOLDER": "{{author_name}}",
+        "AUTHOR_EMAIL_PLACEHOLDER": "{{author_email}}"
+      }
+    }
+  ]
+}

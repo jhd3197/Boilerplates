@@ -1,0 +1,45 @@
+{
+  "id": "wp_theme_basic",
+  "name": "WordPress Theme Basic",
+  "description": "Starter WordPress theme with standard hierarchy and header/footer/sidebar.",
+  "prompts": {
+    "project_name": {
+      "label": "Theme Name",
+      "default": "My Theme",
+      "format": "text"
+    },
+    "package_name": {
+      "label": "Theme slug",
+      "default": "mytheme",
+      "format": "snake_case"
+    },
+    "author_name": {
+      "label": "Author name",
+      "default": "Your Name",
+      "format": "text"
+    },
+    "author_email": {
+      "label": "Author email",
+      "default": "",
+      "format": "text"
+    },
+    "project_description": {
+      "label": "Theme description",
+      "default": "A minimal WordPress theme starter.",
+      "format": "text"
+    }
+  },
+  "rename": {},
+  "replace": [
+    {
+      "glob": "{**/*,*}.{php,md,txt,css,js,json}",
+      "values": {
+        "mytheme": "{{package_name}}",
+        "PROJECT_NAME_PLACEHOLDER": "{{project_name}}",
+        "PROJECT_DESCRIPTION_PLACEHOLDER": "{{project_description}}",
+        "AUTHOR_NAME_PLACEHOLDER": "{{author_name}}",
+        "AUTHOR_EMAIL_PLACEHOLDER": "{{author_email}}"
+      }
+    }
+  ]
+}
