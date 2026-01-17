@@ -1,0 +1,21 @@
+{
+  "id": "react_marketing",
+  "name": "React Marketing Site",
+  "description": "Landing pages and marketing site optimized for SEO and conversion.",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My Marketing Site",
+      "format": "text"
+    }
+  },
+  "replace": [
+    {
+      "glob": "**/*.{js,jsx,json,html,md}",
+      "values": {
+        "React Marketing": "{{project_name}}",
+        "react-marketing": "{{project_name}}"
+      }
+    }
+  ]
+}

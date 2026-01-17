@@ -1,0 +1,21 @@
+{
+  "id": "react_embedded",
+  "name": "React Embedded Widget",
+  "description": "Embeddable React widgets designed for integration into other applications.",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My Widget",
+      "format": "text"
+    }
+  },
+  "replace": [
+    {
+      "glob": "**/*.{js,jsx,json,html,md}",
+      "values": {
+        "React Embedded": "{{project_name}}",
+        "react-embedded": "{{project_name}}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "python_client_flask",
+  "name": "Python Client + Flask API",
+  "description": "Client-centric Python project with an integrated Flask API server.",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My Project",
+      "format": "text"
+    },
+    "package_name": {
+      "label": "Python package name",
+      "default": "myproject",
+      "format": "snake_case"
+    },
+    "author_name": {
+      "label": "Author name",
+      "default": "Your Name",
+      "format": "text"
+    },
+    "author_email": {
+      "label": "Author email",
+      "default": "",
+      "format": "text"
+    },
+    "project_description": {
+      "label": "Project description",
+      "default": "A robust Python boilerplate with cooperative multiple inheritance.",
+      "format": "text"
+    }
+  },
+  "rename": {
+    "myproject": "{{package_name}}"
+  },
+  "replace": [
+    {
+      "glob": "{**/*,*}.{py,md,yml,yaml,txt}",
+      "values": {
+        "myproject": "{{package_name}}",
+        "MyProject": "{{project_name}}",
+        "PROJECT_DISPLAY_NAME_PLACEHOLDER": "{{project_name}}",
+        "AUTHOR_NAME_PLACEHOLDER": "{{author_name}}",
+        "AUTHOR_EMAIL_PLACEHOLDER": "{{author_email}}",
+        "PROJECT_DESCRIPTION_PLACEHOLDER": "{{project_description}}"
+      }
+    },
+    {
+      "glob": ".env*",
+      "values": {
+        "MyProject": "{{project_name}}"
+      }
+    }
+  ]
+}

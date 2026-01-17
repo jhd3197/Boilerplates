@@ -1,0 +1,79 @@
+{
+  "id": "react_pcf_simple",
+  "name": "React PCF (PowerApps Component Framework)",
+  "description": "Simple PowerApps Component Framework control with TypeScript",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My PCF Component",
+      "format": "text"
+    },
+    "package_name": {
+      "label": "Package name (lowercase with dashes)",
+      "default": "my-pcf-component",
+      "format": "text"
+    },
+    "project_description": {
+      "label": "Project description",
+      "default": "A custom PowerApps Component Framework control",
+      "format": "text"
+    },
+    "component_name": {
+      "label": "Component name (PascalCase, e.g., MyComponent)",
+      "default": "MyComponent",
+      "format": "text"
+    },
+    "component_folder": {
+      "label": "Component folder name (lowercase, e.g., mycomponent)",
+      "default": "mycomponent",
+      "format": "text"
+    },
+    "namespace": {
+      "label": "Component namespace (e.g., CompanyName)",
+      "default": "CustomControls",
+      "format": "text"
+    },
+    "author_name": {
+      "label": "Author name",
+      "default": "Your Name",
+      "format": "text"
+    },
+    "publisher_name": {
+      "label": "Publisher name",
+      "default": "Your Company",
+      "format": "text"
+    }
+  },
+  "rename": {
+    "myproject": "{{package_name}}",
+    "mycomponent": "{{component_folder}}"
+  },
+  "replace": [
+    {
+      "glob": "**/*.{ts,json,xml,css,resx,md}",
+      "values": {
+        "myproject": "{{package_name}}",
+        "MyComponent": "{{component_name}}",
+        "mycomponent": "{{component_folder}}",
+        "PROJECT_NAME_PLACEHOLDER": "{{project_name}}",
+        "PROJECT_DESCRIPTION_PLACEHOLDER": "{{project_description}}",
+        "NAMESPACE_PLACEHOLDER": "{{namespace}}",
+        "AUTHOR_NAME_PLACEHOLDER": "{{author_name}}",
+        "PUBLISHER_NAME_PLACEHOLDER": "{{publisher_name}}"
+      }
+    },
+    {
+      "glob": "*.{ts,json,xml,css,resx,md}",
+      "values": {
+        "myproject": "{{package_name}}",
+        "MyComponent": "{{component_name}}",
+        "mycomponent": "{{component_folder}}",
+        "PROJECT_NAME_PLACEHOLDER": "{{project_name}}",
+        "PROJECT_DESCRIPTION_PLACEHOLDER": "{{project_description}}",
+        "NAMESPACE_PLACEHOLDER": "{{namespace}}",
+        "AUTHOR_NAME_PLACEHOLDER": "{{author_name}}",
+        "PUBLISHER_NAME_PLACEHOLDER": "{{publisher_name}}"
+      }
+    }
+  ]
+}

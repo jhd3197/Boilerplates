@@ -1,0 +1,20 @@
+{
+  "id": "react_spa",
+  "name": "React Single Page Application",
+  "description": "Client-only React app with Vite and React Router.",
+  "prompts": {
+    "project_name": {
+      "label": "Project name",
+      "default": "My React App",
+      "format": "text"
+    }
+  },
+  "replace": [
+    {
+      "glob": "**/*.{js,jsx,json,html,md}",
+      "values": {
+        "React SPA": "{{project_name}}"
+      }
+    }
+  ]
+}

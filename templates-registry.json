@@ -2,7 +2,7 @@
   "version": "1.0",
   "name": "Official Boilerplate Templates",
   "description": "Curated collection of project templates - each template can be from a different repository",
-  "default_repo": "https://github.com/jgarzarebel/boilerplates",
+  "default_repo": "https://github.com/jhd3197/boilerplates",
   "templates": [
     {
       "id": "python_client_flask",
@@ -10,7 +10,7 @@
       "description": "Client-centric Python project with an integrated Flask API server.",
       "category": "python",
       "repo": null,
-      "path": "boilerplates/templates/python/python_client_flask",
+      "path": "go-boilerplate-manager/templates/python/python_client_flask",
       "branch": "main",
       "commit": null,
       "tags": ["python", "flask", "api", "client"]
@@ -21,7 +21,7 @@
       "description": "Client-only React app with Vite and React Router.",
       "category": "react",
       "repo": null,
-      "path": "boilerplates/templates/react/react_spa",
+      "path": "go-boilerplate-manager/templates/react/react_spa",
       "branch": "main",
       "commit": null,
       "tags": ["react", "vite", "spa", "router"]
@@ -32,7 +32,7 @@
       "description": "Admin dashboard with authentication, tables, charts, and admin UI components.",
       "category": "react",
       "repo": null,
-      "path": "boilerplates/templates/react/react_dashboard",
+      "path": "go-boilerplate-manager/templates/react/react_dashboard",
       "branch": "main",
       "commit": null,
       "tags": ["react", "dashboard", "admin", "charts"]
@@ -43,7 +43,7 @@
       "description": "Landing pages and marketing site optimized for SEO and conversion.",
       "category": "react",
       "repo": null,
-      "path": "boilerplates/templates/react/react_marketing",
+      "path": "go-boilerplate-manager/templates/react/react_marketing",
       "branch": "main",
       "commit": null,
       "tags": ["react", "marketing", "seo", "landing"]
@@ -54,7 +54,7 @@
       "description": "Embeddable React widgets designed for integration into other applications.",
       "category": "react",
       "repo": null,
-      "path": "boilerplates/templates/react/react_embedded",
+      "path": "go-boilerplate-manager/templates/react/react_embedded",
       "branch": "main",
       "commit": null,
       "tags": ["react", "widget", "embedded", "iframe"]
@@ -65,7 +65,7 @@
       "description": "Simple PowerApps Component Framework control with TypeScript",
       "category": "react",
       "repo": null,
-      "path": "boilerplates/templates/react/react_pcf_simple",
+      "path": "go-boilerplate-manager/templates/react/react_pcf_simple",
       "branch": "main",
       "commit": null,
       "tags": ["react", "pcf", "powerapps", "typescript"]
@@ -76,7 +76,7 @@
       "description": "Starter WordPress plugin with admin/public classes, hooks, and assets.",
       "category": "php",
       "repo": null,
-      "path": "boilerplates/templates/php/wp_plugin_basic_kit",
+      "path": "go-boilerplate-manager/templates/php/wp_plugin_basic_kit",
       "branch": "main",
       "commit": null,
       "tags": ["php", "wordpress", "plugin"]
@@ -87,7 +87,7 @@
       "description": "Starter WordPress theme with standard hierarchy and header/footer/sidebar.",
       "category": "php",
       "repo": null,
-      "path": "boilerplates/templates/php/wp_theme_basic",
+      "path": "go-boilerplate-manager/templates/php/wp_theme_basic",
       "branch": "main",
       "commit": null,
       "tags": ["php", "wordpress", "theme"]

@@ -1,0 +1,37 @@
+.embedded-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: sans-serif;
+    z-index: 9999;
+}
+
+.widget-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.widget-toggle:hover {
+    background-color: #0056b3;
+}
+
+.widget-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    width: 300px;
+    border: 1px solid #ddd;
+}
+
+.widget-content h3 {
+    margin-top: 0;
+    color: #333;
+}
