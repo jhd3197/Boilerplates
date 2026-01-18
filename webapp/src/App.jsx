@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import TemplateList from './components/TemplateList'
 import TemplateForm from './components/TemplateForm'
 import Header from './components/Header'
+import { Loader2 } from 'lucide-react'
 
 const REGISTRY_URL = 'https://raw.githubusercontent.com/jhd3197/boilerplates/main/templates-registry.json'
 
@@ -39,20 +40,20 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#0d1117]">
+        <Loader2 className="w-10 h-10 animate-spin text-[#1f6feb]" />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-[#0d1117]">
         <div className="text-center">
-          <p className="text-red-600 text-lg mb-4">Error: {error}</p>
+          <p className="text-red-400 text-lg mb-4">Error: {error}</p>
           <button
             onClick={fetchRegistry}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="px-6 py-2 bg-[#238636] text-white rounded-md hover:bg-[#2ea043] transition-colors"
           >
             Retry
           </button>
@@ -62,22 +63,20 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col bg-[#0d1117]">
       <Header />
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        {selectedTemplate ? (
-          <TemplateForm
-            template={selectedTemplate}
-            registry={registry}
-            onBack={handleBack}
-          />
-        ) : (
-          <TemplateList
-            templates={registry?.templates || []}
-            onSelect={handleSelectTemplate}
-          />
-        )}
-      </main>
+      {selectedTemplate ? (
+        <TemplateForm
+          template={selectedTemplate}
+          registry={registry}
+          onBack={handleBack}
+        />
+      ) : (
+        <TemplateList
+          templates={registry?.templates || []}
+          onSelect={handleSelectTemplate}
+        />
+      )}
     </div>
   )
 }
