@@ -156,6 +156,10 @@ COPY --from=build /app/dist /usr/share/nginx/html
 
 ---
 
+## Screenshot
+
+<img width="1703" height="961" alt="image" src="https://github.com/user-attachments/assets/c8b76576-9790-4433-ba58-f8d1bb9012e8" />
+
 ## Development
 
 ### Prerequisites
