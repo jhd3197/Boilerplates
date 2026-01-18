@@ -7,7 +7,7 @@ const categoryIcons = {
   other: '📦',
 }
 
-function TemplateCard({ template, onSelect }) {
+function TemplateCard({ template, onSelect, onEdit }) {
   const icon = categoryIcons[template.category] || categoryIcons.other
 
   return (
@@ -37,7 +37,13 @@ function TemplateCard({ template, onSelect }) {
       )}
 
       <div className="border-t border-[#30363d] pt-4 flex gap-2">
-        <button className="flex-1 py-2 px-4 rounded bg-transparent border border-[#30363d] text-[#c9d1d9] text-sm hover:bg-[#21262d] hover:text-white transition-all">
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onEdit()
+          }}
+          className="flex-1 py-2 px-4 rounded bg-transparent border border-[#30363d] text-[#c9d1d9] text-sm hover:bg-[#21262d] hover:text-white transition-all"
+        >
           <Pencil className="w-4 h-4 inline mr-2" />
           Edit
         </button>

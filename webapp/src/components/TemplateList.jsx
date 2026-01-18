@@ -2,15 +2,15 @@ import { useState } from 'react'
 import TemplateCard from './TemplateCard'
 import { Search, Plus, Upload, Download } from 'lucide-react'
 
-function TemplateList({ templates, onSelect }) {
+function TemplateList({ templates, onSelect, onEdit, onAdd, onExport, onImport }) {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
 
-  const categories = ['all', ...new Set(templates.map(t => t.category))]
+  const categories = ['all', ...new Set(templates.map(t => t.category).filter(Boolean))]
 
   const filtered = templates.filter(t => {
     const matchesSearch = t.name.toLowerCase().includes(search.toLowerCase()) ||
-      t.description.toLowerCase().includes(search.toLowerCase()) ||
+      t.description?.toLowerCase().includes(search.toLowerCase()) ||
       t.tags?.some(tag => tag.toLowerCase().includes(search.toLowerCase()))
     const matchesCategory = category === 'all' || t.category === category
     return matchesSearch && matchesCategory
@@ -19,7 +19,8 @@ function TemplateList({ templates, onSelect }) {
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Control Bar */}
-      <div className="px-8 py-6 flex justify-between items-center gap-4 flex-wrap">
+      <div className="px-8 py-6">
+        <div className="max-w-[1400px] mx-auto flex justify-between items-center gap-4 flex-wrap">
         {/* Search & Filters */}
         <div className="flex items-center gap-4 flex-1">
           <div className="relative">
@@ -52,18 +53,28 @@ function TemplateList({ templates, onSelect }) {
 
         {/* Action Buttons */}
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 px-4 py-2 bg-transparent border border-[#30363d] rounded-md text-[#c9d1d9] text-sm font-medium hover:bg-[#21262d] hover:border-[#8b949e] transition-all">
+          <button
+            onClick={onImport}
+            className="flex items-center gap-2 px-4 py-2 bg-transparent border border-[#30363d] rounded-md text-[#c9d1d9] text-sm font-medium hover:bg-[#21262d] hover:border-[#8b949e] transition-all"
+          >
             <Upload className="w-4 h-4" />
             Import
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-transparent border border-[#30363d] rounded-md text-[#c9d1d9] text-sm font-medium hover:bg-[#21262d] hover:border-[#8b949e] transition-all">
+          <button
+            onClick={onExport}
+            className="flex items-center gap-2 px-4 py-2 bg-transparent border border-[#30363d] rounded-md text-[#c9d1d9] text-sm font-medium hover:bg-[#21262d] hover:border-[#8b949e] transition-all"
+          >
             <Download className="w-4 h-4" />
             Export
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-[#238636] border border-white/10 rounded-md text-white text-sm font-medium hover:bg-[#2ea043] transition-all">
+          <button
+            onClick={onAdd}
+            className="flex items-center gap-2 px-4 py-2 bg-[#238636] border border-white/10 rounded-md text-white text-sm font-medium hover:bg-[#2ea043] transition-all"
+          >
             <Plus className="w-4 h-4" />
             Add Boilerplate
           </button>
+        </div>
         </div>
       </div>
 
@@ -75,6 +86,7 @@ function TemplateList({ templates, onSelect }) {
               key={template.id}
               template={template}
               onSelect={() => onSelect(template)}
+              onEdit={() => onEdit(template)}
             />
           ))}
         </div>
