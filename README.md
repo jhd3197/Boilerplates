@@ -1,252 +1,353 @@
-# ⚡ Boilerplates CLI
+<p align="center">
+  <img src="webapp/public/favicon.svg" alt="Boilerplate Manager" width="80" height="80">
+</p>
 
-> **Accelerate your development.** A powerful CLI for scaffolding production-ready projects in seconds.
+<h1 align="center">Boilerplate Manager</h1>
 
-![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Status](https://img.shields.io/badge/status-active-success)
+<p align="center">
+  <strong>A modern web application for managing, customizing, and scaffolding project templates.</strong>
+</p>
 
-**Boilerplates** is a robust project generator designed to eliminate setup fatigue. Whether you are building a Flask API or a React Dashboard, get started with best-practice architectures instantly.
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#quick-start">Quick Start</a> •
+  <a href="#docker">Docker</a> •
+  <a href="#development">Development</a> •
+  <a href="#configuration">Configuration</a>
+</p>
 
-## Key Features
-
-* **Interactive CLI:** Guided prompts make setup effortless.
-* **Fuzzy Search:** Instantly find the template you need without memorizing names.
-* **Smart Context:** Automatically handles slug conversion (e.g., "My App" → `my_app`).
-* **Auto-Documentation:** Generates a custom `how_it_works.md` for every new project.
-* **Highly Configurable:** Define custom prompts and file replacements via `template.json`.
-* **Agents Ready:** Ready to be used with LLM Agents.  
-
----
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-*   **Python 3.8+**: Required to run the CLI.
-*   **pip**: Python package installer.
-*   *(Optional)* **Node.js & npm**: Required if you plan to use React templates.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-18.x-61DAFB?style=flat-square&logo=react" alt="React">
+  <img src="https://img.shields.io/badge/Vite-6.x-646CFF?style=flat-square&logo=vite" alt="Vite">
+  <img src="https://img.shields.io/badge/Tailwind-3.x-06B6D4?style=flat-square&logo=tailwindcss" alt="Tailwind">
+  <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=flat-square&logo=docker" alt="Docker">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
+</p>
 
 ---
 
-## Installation
+## Overview
 
-Clone the repository and install the CLI globally using pip. We recommend installing in editable mode so you can easily update templates.
+**Boilerplate Manager** is a sleek, browser-based application that streamlines project scaffolding. Browse a curated registry of templates, add your own custom boilerplates (including private repositories), customize variables, and download production-ready project structures—all without leaving your browser.
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/jhd3197/boilerplates.git
-cd boilerplates
-```
+### Why Boilerplate Manager?
 
-### 2. Install the CLI
-```bash
-pip install -e .
-```
+- **Zero Installation**: Access via GitHub Pages or run locally with Docker
+- **Registry-Based**: Templates are fetched from a central JSON registry, always up-to-date
+- **Custom Templates**: Add your own GitHub repositories as templates
+- **Variable Substitution**: Customize project names, package names, and more before download
+- **Offline Capable**: Custom templates persist in browser localStorage
 
-> **Note:** If you get a "permission denied" error, try using `sudo` (Linux/Mac) or run your command prompt as Administrator (Windows).
+---
 
-### 3. Verify Installation
-```bash
-boilerplates --help
-```
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Template Registry** | Browse templates from a centralized GitHub-hosted registry |
+| **Custom Templates** | Add templates from any GitHub repository (public or private) |
+| **Smart Search** | Filter templates by name, description, tags, or category |
+| **Category Filters** | Quick filtering by technology (React, Python, Go, PHP, etc.) |
+| **Variable Replacement** | Customize project name, package name, and other variables |
+| **Commit Pinning** | Pin templates to specific commits for reproducible builds |
+| **Import/Export** | Backup and restore your custom template collection |
+| **Dark Theme** | GitHub-inspired dark interface for comfortable viewing |
+| **Client-Side ZIP** | Projects are generated and downloaded entirely in the browser |
 
 ---
 
 ## Quick Start
 
-### Interactive Mode (Recommended)
+### Option 1: GitHub Pages (Recommended)
 
-The easiest way to start a new project. The CLI will guide you through naming, metadata, and template selection.
+Access the hosted version directly—no installation required:
 
-```bash
-boilerplates init
-# or simply
-boilerplates
-```
+**[https://jhd3197.github.io/boilerplates](https://jhd3197.github.io/boilerplates)**
 
-**The Setup Wizard will collect:**
+### Option 2: Docker
 
-1.  **Project Name** (Auto-slugified for package names)
-2.  **Author Metadata** (Name/Email)
-3.  **Category** (Python, React, etc.)
-4.  **Template Selection** (via Fuzzy Search)
-
-### Non-Interactive Mode
-
-Perfect for scripts or power users who know exactly what they want.
+Run locally with a single command:
 
 ```bash
-# Syntax: boilerplates create <category> <template_id> <project_name>
-
-# Create a Python Flask project
-boilerplates create python python_client_flask my-flask-app
-
-# Create a React SPA
-boilerplates create react react_spa my-react-app
-
-# Custom flags
-boilerplates create python python_client_flask my-app --package custom_pkg_name
-boilerplates create react react_dashboard admin-panel --output ~/projects
+docker run -d -p 3000:80 ghcr.io/jhd3197/boilerplate-manager:latest
 ```
 
-To see a full list of commands:
+Then open [http://localhost:3000](http://localhost:3000)
+
+### Option 3: Docker Compose
+
+Clone the repository and use Docker Compose:
 
 ```bash
-boilerplates list
+git clone https://github.com/jhd3197/boilerplates.git
+cd boilerplates/webapp
+docker-compose up -d
 ```
 
----
-## GitHub Integration
-
-Extend the power of the Boilerplate Manager by connecting it to GitHub. You can use a curated list of public boilerplates or add your own private repositories.
-
-### 1. Configure Your GitHub Token
-
-To use private repositories, you need to provide a GitHub Personal Access Token (PAT) with the `repo` scope.
-
-```bash
-boilerplates config set-token
-```
-
-The CLI will prompt you to enter your token, which will be stored securely in the tool's configuration.
-
-### 2. Manage Repositories
-
-#### Public Repositories
-The tool comes pre-configured with a list of public boilerplates. This list is fetched from a central repository, so it can be updated without requiring a CLI update.
-
-#### Private Repositories
-You can add and remove your own private boilerplates.
-
-**Add a repository:**
-```bash
-# Syntax: boilerplates repo add <repo_url> --alias <alias>
-boilerplates repo add https://github.com/my-user/my-react-template.git --alias my-react
-```
-The `alias` is a short name you'll use to refer to the template. If you don't provide one, it will be inferred from the URL.
-
-**Remove a repository:**
-```bash
-# Syntax: boilerplates repo remove <alias>
-boilerplates repo remove my-react
-```
-
-Now, when you run `boilerplates list` or `boilerplates init`, you will see your private templates listed under the "private" category.
+Access at [http://localhost:3010](http://localhost:3010)
 
 ---
 
-## Template Catalog
+## Docker
 
-### Python
+### Using Docker Compose
 
-| Template ID | Description |
-| --- | --- |
-| `python_client_flask` | Modular Flask architecture with API structure. |
-| `cache` | Standalone custom caching utilities. |
-| `custom_cache` | Advanced caching implementation for high-performance needs. |
-| `myproject` | Basic, unopinionated Python project structure. |
+The recommended way to run the application locally:
 
-### React
+```yaml
+# docker-compose.yml
+services:
+  webapp:
+    build: .
+    ports:
+      - "3010:80"
+    restart: unless-stopped
+```
 
-| Template ID | Description |
-| --- | --- |
-| `react_spa` | Modern Single Page Application (Vite + React Router). |
-| `react_dashboard` | Admin dashboard boilerplate with auth flows and charts. |
-| `react_marketing` | High-performance landing page structure optimized for SEO. |
-| `react_embedded` | Lightweight setup for embeddable widgets/scripts. |
+**Commands:**
+
+```bash
+# Start the application
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the application
+docker-compose down
+
+# Rebuild after changes
+docker-compose build --no-cache && docker-compose up -d
+```
+
+### Using Docker Directly
+
+```bash
+# Build the image
+docker build -t boilerplate-manager ./webapp
+
+# Run the container
+docker run -d -p 3000:80 --name boilerplate-manager boilerplate-manager
+
+# Stop and remove
+docker stop boilerplate-manager && docker rm boilerplate-manager
+```
+
+### Production Deployment
+
+The Docker image uses a multi-stage build with nginx for optimal performance:
+
+- **Build stage**: Node.js 20 Alpine compiles the React application
+- **Production stage**: nginx Alpine serves static files (~25MB final image)
+
+```dockerfile
+# Build optimized for production
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Serve with nginx
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+```
 
 ---
 
-## Template Configuration
+## Development
 
-Want to add your own templates? Each template acts as a blueprint. You can control how the CLI interacts with your template using a `template.json` file in the template's root.
+### Prerequisites
 
-### The `template.json` Schema
+- Node.js 20.x or higher
+- npm 9.x or higher
 
-This file handles dynamic variable collection, file renaming, and string replacement.
+### Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/jhd3197/boilerplates.git
+cd boilerplates/webapp
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The development server runs at [http://localhost:5173](http://localhost:5173) with hot module replacement.
+
+### Build for Production
+
+```bash
+npm run build
+npm run preview  # Preview the production build locally
+```
+
+### Project Structure
+
+```
+webapp/
+├── src/
+│   ├── components/
+│   │   ├── Header.jsx           # Application header with logo
+│   │   ├── TemplateList.jsx     # Template grid with search/filters
+│   │   ├── TemplateCard.jsx     # Individual template card
+│   │   ├── TemplateForm.jsx     # Variable customization form
+│   │   ├── Modal.jsx            # Reusable modal component
+│   │   ├── AddBoilerplateModal.jsx   # Add custom template form
+│   │   └── EditTemplateModal.jsx     # Edit/view template details
+│   ├── utils/
+│   │   ├── storage.js           # localStorage management
+│   │   └── zipGenerator.js      # Client-side ZIP generation
+│   ├── App.jsx                  # Main application component
+│   ├── main.jsx                 # Application entry point
+│   └── index.css                # Global styles with Tailwind
+├── public/
+│   └── favicon.svg              # Application logo/favicon
+├── Dockerfile                   # Multi-stage Docker build
+├── docker-compose.yml           # Docker Compose configuration
+├── nginx.conf                   # nginx configuration
+├── vite.config.js               # Vite configuration
+├── tailwind.config.js           # Tailwind CSS configuration
+└── package.json                 # Dependencies and scripts
+```
+
+---
+
+## Configuration
+
+### Template Registry
+
+Templates are fetched from a central registry hosted on GitHub:
+
+```
+https://raw.githubusercontent.com/jhd3197/boilerplates/main/templates-registry.json
+```
+
+**Registry Schema:**
 
 ```json
 {
-  "id": "python_client_flask",
-  "name": "Python Client + Flask API",
-  "description": "Client-centric Python project with an integrated Flask API server.",
-  
-  "prompts": {
-    "project_name": {
-      "label": "Project name",
-      "default": "My Project",
-      "format": "text"
-    },
-    "package_name": {
-      "label": "Python package name",
-      "default": "myproject",
-      "format": "snake_case"
-    }
-  },
-  
-  "rename": {
-    "myproject": "{{package_name}}"
-  },
-  
-  "replace": [
+  "version": "1.0.0",
+  "default_repo": "https://github.com/jhd3197/boilerplates",
+  "templates": [
     {
-      "glob": "**/*.{py,md,txt}",
-      "values": {
-        "myproject": "{{package_name}}"
-      }
+      "id": "react-vite-starter",
+      "name": "React + Vite Starter",
+      "description": "Modern React setup with Vite and Tailwind CSS",
+      "category": "react",
+      "tags": ["react", "vite", "tailwind"],
+      "path": "templates/react-vite-starter",
+      "branch": "main",
+      "commit": null
     }
   ]
 }
 ```
 
-### Configuration Options
+### Custom Templates
 
-*   **Prompts:** Define input variables (`label`, `default`, `format`).
-*   **Rename:** Map directory/file names to variables using `{{mustache}}` syntax.
-*   **Replace:** Targeted string replacement within files using glob patterns.
+Add your own templates through the UI or by importing a JSON file:
 
-> [!WARNING]
-> **Legacy Mode:** If `template.json` is missing, the CLI defaults to "Legacy Mode." It will assume the project contains a folder named `myproject` and attempt to rename it and replace string instances with the new package name automatically. **This is deprecated.**
-
----
-
-## Project Structure
-
-```text
-boilerplates/
-├── boilerplates/           # Main Package Source
-│   ├── __init__.py
-│   ├── cli.py              # CLI Logic & Entry Point
-│   └── templates/          # Template Repository
-│       ├── python/
-│       └── react/
-├── setup.py                # Package Configuration
-├── requirements.txt        # Dependencies
-└── README.md
+```json
+[
+  {
+    "id": "my-custom-template",
+    "name": "My Custom Template",
+    "description": "A custom project template",
+    "repo": "https://github.com/username/repo",
+    "path": "templates/my-template",
+    "branch": "main",
+    "commit": "abc123def456",
+    "category": "other",
+    "tags": ["custom"],
+    "isPrivate": false,
+    "isCustom": true
+  }
+]
 ```
 
-## Troubleshooting
+### Commit Pinning
 
-**Command not found?**
-Ensure your Python scripts directory is in your system's `PATH`.
-*   **Windows**: Add `%APPDATA%\Python\Scripts` to PATH.
-*   **Mac/Linux**: Add `~/.local/bin` to your PATH.
+Pin templates to specific commits for reproducible project generation:
 
-**Permission errors?**
-Try running with `sudo` or check directory permissions.
+- **`commit: null`** — Always fetch from the latest commit on the specified branch
+- **`commit: "abc123..."`** — Fetch from the exact specified commit
 
 ---
 
-## Documentation
+## Technology Stack
 
-Every project generated by **Boilerplates** comes with a specialized `how_it_works.md`. This auto-generated file provides immediate context for the specific template used, covering:
-
-*   Project Structure breakdown
-*   Dependency installation
-*   Key features & technologies
-*   Customization guides
+| Technology | Purpose |
+|------------|---------|
+| **React 18** | UI components and state management |
+| **Vite 6** | Build tool and development server |
+| **Tailwind CSS 3** | Utility-first styling |
+| **Lucide React** | Icon library |
+| **JSZip** | Client-side ZIP file generation |
+| **nginx** | Production static file serving |
+| **Docker** | Containerization and deployment |
 
 ---
 
-Made with ❤️ by [Juan Denis](https://juandenis.com)
+## API Reference
+
+### GitHub API Integration
+
+The application uses the GitHub API to fetch repository contents:
+
+```
+GET https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1
+GET https://raw.githubusercontent.com/{owner}/{repo}/{ref}/{path}
+```
+
+**Rate Limits:**
+- Unauthenticated: 60 requests/hour
+- Authenticated: 5,000 requests/hour
+
+For private repositories or higher rate limits, configure a GitHub token through the UI.
+
+---
+
+## Browser Support
+
+| Browser | Support |
+|---------|---------|
+| Chrome | Latest 2 versions |
+| Firefox | Latest 2 versions |
+| Safari | Latest 2 versions |
+| Edge | Latest 2 versions |
+
+---
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Development Guidelines
+
+- Follow the existing code style
+- Write meaningful commit messages
+- Update documentation as needed
+- Test your changes thoroughly
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+<p align="center">
+  Made with care by <a href="https://juandenis.com">Juan Denis</a>
+</p>
